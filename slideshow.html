@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8" /> 
+  <title>スライドショーページ</title>
+  <style>
+    body {
+      margin: 0;
+      padding: 0;
+      overflow: hidden;
+    }
+    .slideshow {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      z-index: -1;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+    }
+    .slideshow-image {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      opacity: 0;
+      transition: opacity 200ms ease;
+    }
+    .active {
+      opacity: 1;
+    }
+  </style>
+</head>
+<body>
+  <div class="slideshow">
+    <img src="2.jpg" class="slideshow-image active">
+    <img src="3.jpg" class="slideshow-image">
+    <img src="4.jpg" class="slideshow-image">
+  </div>
+
+  <script>
+    let intervalId = null;
+    let currentIndex = 0;
+    const images = document.querySelectorAll('.slideshow-image');
+
+    function startSlideshow() {
+      clearInterval(intervalId);
+      intervalId = setInterval(changeBackground, 100); // 0.1秒ごとに切り替える場合
+    }
+
+    function changeBackground() {
+      images[currentIndex].classList.remove('active');
+      currentIndex = (currentIndex + 1) % images.length;
+      images[currentIndex].classList.add('active');
+    }
+
+    // ページロード時にスライドショーを開始
+    startSlideshow();
+  </script>
+</body>
+</html>
